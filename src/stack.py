@@ -6,6 +6,8 @@ from typing import Generic, TypeVar, Optional
 
 T = TypeVar('T')
 
+class EmptyStack(Exception):
+    pass
 
 @dataclass
 class Link(Generic[T]):
@@ -23,20 +25,41 @@ class Stack(Generic[T]):
 
     def __init__(self) -> None:
         """Create a new stack of values of type T."""
-        # FIXME: code here
+        self.stack = []
 
     def push(self, x: T) -> None:
         """Push x on the top of this stack."""
-        # FIXME: code here
+        self.stack.append(x)
 
     def top(self) -> T:
         """Return the top of the stack."""
-        # FIXME: code here
+        if self.is_empty():
+            raise(EmptyStack)
+        else:
+            return self.stack[-1]
+
 
     def pop(self) -> T:
         """Pop the top element off the stack and return it."""
-        # FIXME: code here
+        if self.is_empty():
+            raise(EmptyStack)
+        else:
+            self.stack.pop()
 
     def is_empty(self) -> bool:
         """Test if the stack is empty."""
-        # FIXME: code here
+        return len(self.stack)==0
+
+
+
+is_stack = Stack()
+
+is_stack.push(1)
+
+is_stack.push(2)
+
+is_stack.push(3)
+
+is_stack.pop()
+
+print(is_stack.top())
